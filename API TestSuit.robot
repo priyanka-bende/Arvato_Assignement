@@ -85,20 +85,3 @@ Scenario7:Verify If To currency ois provided with less than 3 char
      API_Resource.validate status code for response    ${api_response}    400
      API_Resource.validate error message    ${api_response}       ${error_currency_length}    ${error_invalid_input}
    
-*** Keywords **
-
-# Get response from API when To Currency is NOK
-    # ${response}    API_Resource.Hit the URI and get the reponse
-    # API_Resource.validate json response parameter    ${response}
-    # [Return]    ${response}    
-# validate the value in output json
-    # [Arguments]    ${response}     
-    # check data in response data    ${response} 
-# validate the calculation of conversion
-    # [Arguments]    ${response}
-    # API_Resource.calculate the amount for to currency    ${response}
-    
-    
-        
-
-
