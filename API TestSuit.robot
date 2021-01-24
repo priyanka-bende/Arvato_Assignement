@@ -17,11 +17,12 @@ ${response_json}
 
  
 Scenario1:Verify the response code as 200 and data in output json
-      [Documentation]     Given From Currency is Nok To currency is EUR then calculate the Currency
-    ...     when exchage rate is received
+      [Documentation]     Given From Currency is Nok To currency is EUR then calculate the Amount
+    ...     when exchage rate is received successfully 
     ...    then verify the response code
-     #BuiltIn.Set Global Variable    ${response}        
-     ${response_fixer}    API_Resource.Hit fixed api    ${to_currency}
+     #BuiltIn.Set Global Variable    ${response} 
+            
+    ${response_fixer}    API_Resource.Hit fixed api    ${to_currency}
     ${exchange_rate}    API_Resource.Fetch exchange rate from fixer     ${response_fixer}     ${to_currency}
    
     ${api_response}    API_Resource.Hit the URI and get the reponse    ${End_point}    ${to_currency}    ${amount}   
@@ -29,7 +30,7 @@ Scenario1:Verify the response code as 200 and data in output json
     API_Resource.validate json response parameter    ${api_response}
     API_Resource.check values in response json    ${api_response}     ${from_currency}     ${to_currency}    ${amount}    ${exchange_rate}
     API_Resource.calculate the amount for to currency    ${api_response}    ${amount}
-Scenario2:Verify the response code as 400 and If mandatory parameter From Currency is missing
+Scenario2:Verify the response code as 400 and If mandatory parameter To Currency is missing
        [Documentation]     Given  To currency is missing 
     ...     when From Currency is EUR
     ...    then validate the response Code
@@ -37,11 +38,11 @@ Scenario2:Verify the response code as 400 and If mandatory parameter From Curren
      API_Resource.validate status code for response    ${api_response}    400
      API_Resource.validate error message    ${api_response}    ${invalid_currency_err_msg}    ${Error_code}   
  
-Scenario3:Verify the response code as 404 and If mandatory parameter Amount is incorrect
-       [Documentation]     Given  To currency is missing 
-    ...     when From Currency is EUR
+Scenario3:Verify the response code as 404 and If mandatory parameter Amount is Non Numeric
+       [Documentation]     Given  Amount is missing in the Endpoint 
+    ...     when From Currency is EUR and To Currency is provided
     ...    then validate the response Code
-      ${api_response}    API_Resource.Hit the URI and get the reponse    ${End_point}    ${from_currency}   "yyyy"
+      ${api_response}    API_Resource.Hit the URI and get the reponse    ${End_point}    ${to_currency}   "yyyy"
      API_Resource.validate status code for response    ${api_response}    404
 
 Scenario4:Verify If To currency is an invalid currency
@@ -63,7 +64,7 @@ Scenario5:Verify the response code and error message If Amount is 0
 Scenario6:Validate the response if to currency is provided in small letter
                   [Documentation]     Given a valid to currency is provided in small letters
     ...     when  To Currency is Valid
-    ...    then validate the response Code as 400 and error message  
+    ...    then validate the response Code as 200 and error message  
        ${response_fixer}    API_Resource.Hit fixed api    ${to_currency}
        ${exchange_rate}    API_Resource.Fetch exchange rate from fixer     ${response_fixer}     ${to_currency}
        
@@ -71,12 +72,13 @@ Scenario6:Validate the response if to currency is provided in small letter
       API_Resource.validate status code for response    ${api_response}    200
      
      API_Resource.validate json response parameter    ${api_response}
+
      API_Resource.check values in response json    ${api_response}     ${from_currency}     ${to_currency_small_letter}    ${amount}    ${exchange_rate}
      API_Resource.calculate the amount for to currency    ${api_response}    ${amount}
      
      #API_Resource.validate error message    ${response}    ${Err_msg_amount}    ${Error_code}
-Scenario7:Verify If To currency is in invalid pattern
-          [Documentation]     Given  To currency is an invalid currency
+Scenario7:Verify If To currency ois provided with less than 3 char
+          [Documentation]     Given  To currency contain less than 3 char
     ...     when From Currency is EUR
     ...    then validate the response Code as 400    
      ${api_response}    API_Resource.Hit the URI and get the reponse    ${End_point}    ${invalid_pattern_currency}   ${amount}  
