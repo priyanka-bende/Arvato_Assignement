@@ -11,7 +11,7 @@
           Run API_Exchange_rate_cal.py file to run the API
 
           #Test
-          Run the Test cases from Arvato_TestSuit.robot
+          Run the Test cases from Arvato_TestSuit.robot.
 
           #Unit test Scenarios
           Unit test scenarios are available in Unit_test.txt
