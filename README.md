@@ -13,5 +13,5 @@
           #Test
           Run the Test cases from Arvato_TestSuit.robot.
 
-          #Unit test Scenarios
+          #Unit test Scenarios.
           Unit test scenarios are available in Unit_test.txt
