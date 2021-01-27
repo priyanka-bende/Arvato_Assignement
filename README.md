@@ -7,11 +7,12 @@
         step4:	 Set environmental variable for Python
         step5:	 get chromedriver for the Chrome browser
 
-          #Run the API 
+          #Run the API#
           Run API_Exchange_rate_cal.py file to run the API
 
-          #Test
+          #Test#
           Run the Test cases from Arvato_TestSuit.robot.
 
-          #Unit test Scenarios.
+          #Unit test Scenarios#
           Unit test scenarios are available in Unit_test.txt
+          
